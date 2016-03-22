@@ -13,7 +13,7 @@
         <title>Alien Invasion - Register</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Alien Invasion - Register</h1>
         <form id="frmLogin" action="Registration" method="post">
             <label for="txtFirstName">First Name: </label><input type="text" id="txtFirstName" name="txtFirstName" value=""> 
             <br />

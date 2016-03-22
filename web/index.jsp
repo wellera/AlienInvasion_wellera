@@ -15,7 +15,7 @@
     <%
     %>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Alien Invasion - Login</h1>
         <form id="frmLogin" action="LoginValidator" method="post">
             <label for="txtEmail">Email: </label><input type="text" id="txtEmail" name="txtEmail" value=""> 
             <br />
