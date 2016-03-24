@@ -17,12 +17,32 @@
     <body>
         <h1>Alien Invasion - Login</h1>
         <form id="frmLogin" action="LoginValidator" method="post">
-            <label for="txtEmail">Email: </label><input type="text" id="txtEmail" name="txtEmail" value=""> 
-            <br />
-            <label for="txtPassword">Password: </label><input type="password" id="txtPassword" name="txtPassword" value=""> 
-            <br />
+            <table>
+                <tr>
+                    <td>
+            <label for="txtEmail">Email: </label>
+                    </td>
+                    <td>
+            <input type="text" id="txtEmail" name="txtEmail" value=""> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+            <label for="txtPassword">Password: </label>
+                    </td>
+                    <td>
+                        <input type="password" id="txtPassword" name="txtPassword" value=""> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
             <input type="submit" id="btnSubmit" name="btnSubmit" value="Login">
+                    </td>
+                    <td>
             <a href="register.jsp" target="_blank">Register</a>
+                    </td>
+                </tr>
+            </table>
         </form>
     </body>
 </html>

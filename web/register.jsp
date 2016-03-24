@@ -15,22 +15,58 @@
     <body>
         <h1>Alien Invasion - Register</h1>
         <form id="frmLogin" action="Registration" method="post">
-            <label for="txtFirstName">First Name: </label><input type="text" id="txtFirstName" name="txtFirstName" value=""> 
-            <br />
-            <label for="txtLastName">Last Name: </label><input type="text" id="txtLastName" name="txtLastName" value=""> 
-            <br />
-            <label for="txtEmail">Email: </label><input type="text" id="txtEmail" name="txtEmail" value=""> 
-            <br />
-            <label for="txtPassword">Password: </label><input type="password" id="txtPassword" name="txtPassword" value=""> 
-            <br />
-            <label for="txtConfirmPassword">Confirm Password: </label><input type="password" id="txtConfirmPassword" name="txtConfirmPassword" value=""> 
-            <br />
+            <table>
+                <tr>
+                    <td>
+            <label for="txtFirstName">First Name: </label>
+                    </td>
+                    <td>
+            <input type="text" id="txtFirstName" name="txtFirstName" value=""> 
+                    </td>
+                </tr>    
+                <tr>
+                    <td>
+            <label for="txtLastName">Last Name: </label>
+                    </td>
+                    <td>
+            <input type="text" id="txtLastName" name="txtLastName" value=""> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+            <label for="txtEmail">Email: </label>
+                    </td>
+                    <td>
+            <input type="text" id="txtEmail" name="txtEmail" value=""> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+            <label for="txtPassword">Password: </label>
+                    </td>
+                    <td>
+            <input type="password" id="txtPassword" name="txtPassword" value=""> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+            <label for="txtConfirmPassword">Confirm Password: </label>
+                    </td>
+                    <td>
+                <input type="password" id="txtConfirmPassword" name="txtConfirmPassword" value=""> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
             <input type="submit" id="btnRegister" name="btnRegister" value="Register">
-
+                    </td>
+                    <td>
             <a href="index.jsp">
                 <button>Cancel</button>
             </a>
-
+                    </td>
+                </tr>
+            </table>
         </form>
     </body>
 </html>
