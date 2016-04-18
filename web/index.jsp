@@ -11,9 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Alien Invasion - Login</title>
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <!--this is for favicon -->
+        <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/>
     </head>
-    <%
-    %>
+
     <body>
         <h1>Alien Invasion - Login</h1>
         <form id="frmLogin" action="LoginValidator" method="post">

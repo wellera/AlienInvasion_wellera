@@ -1,0 +1,39 @@
+/* 
+    Created on : Apr 14, 2016, 12:41:40 PM
+    Author     : Alison
+*/
+
+body{
+    background-color:#cccccc;
+}
+
+#alien{
+    width: 43px;
+    height: 29px;
+}
+
+#ship{
+    background-image: url("../images/ship.gif");
+    width: 33px;
+    height: 23px;
+    position:absolute;
+}
+
+#bullet{
+    background-image: url("../images/shot.gif");
+    width: 12px;
+    height: 23px;
+    position: absolute;
+    top:200px;
+    left:200px;
+}
+
+#tblAliens{
+    position:absolute;
+    top:10px;
+    left:10px;
+}
+
+#tblAliens tr td{
+    padding:5px;
+}
