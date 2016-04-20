@@ -10,6 +10,7 @@ body{
 #alien{
     width: 43px;
     height: 29px;
+    position: absolute;
 }
 
 #ship{
@@ -19,14 +20,13 @@ body{
     position:absolute;
 }
 
+/*
 #bullet{
-    background-image: url("../images/shot.gif");
     width: 12px;
     height: 23px;
     position: absolute;
-    top:200px;
-    left:200px;
 }
+*/
 
 #tblAliens{
     position:absolute;

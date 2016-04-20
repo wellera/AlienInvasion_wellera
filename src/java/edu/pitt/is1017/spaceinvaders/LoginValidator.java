@@ -36,29 +36,37 @@ public class LoginValidator extends HttpServlet {
             String email = "";
             String password = "";
             User user;
+                   
 
             if (request.getParameter("btnSubmit") != null) {
+                
                 if (request.getParameter("txtEmail") != null) {
                     if (request.getParameter("txtEmail") != "") {
                         email = request.getParameter("txtEmail");
                     }
                 }
+                
                 if (request.getParameter("txtPassword") != null) {
                     if (request.getParameter("txtPassword") != "") {
                         password = request.getParameter("txtPassword");
-
                     }
                 }
 
                 if (!email.equals("") && !password.equals("")) {
                     user = new User(email, password);
+                    
+                    if (!user.isLoggedIn()){
+                       out.print("<script>alert('Invalid credentials. Please check your user name and password and try again.');</script>");
+                       // response.sendRedirect("index.jsp");
+                    }
+                    
                     if (user.isLoggedIn()){
                         response.sendRedirect("game.jsp");
                     }
-                    else{
                     
-                }
-                } else {
+                }   
+                    
+                if (email.equals("") || password.equals("")) {
                     out.print("<script>alert('You must enter both user name and password');</script>");
 
                 }

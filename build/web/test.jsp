@@ -13,6 +13,8 @@
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script>
+            
+            
             $(document).ready(function () {
                 console.log("document loaded");
                 $.getJSON('ws/ws_readscores', function (data) {
@@ -36,6 +38,8 @@
 
                 });
             });
+            
+            
         </script>
     </head>
     <body>

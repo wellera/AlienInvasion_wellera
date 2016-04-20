@@ -58,7 +58,8 @@ public class User{
 				//System.out.println(rs);//FOR TESTING
 			}
 			else{
-				JOptionPane.showMessageDialog(null, "Login failed. Please check your email and password and try again.");
+                                setLoggedIn(false);
+				//JOptionPane.showMessageDialog(null, "Login failed. Please check your email and password and try again.");
 			}
 			db.closeDbConnection(); // Close connection 
 		}
