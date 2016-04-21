@@ -40,7 +40,16 @@ public class ws_readscores extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
-
+            
+            
+       //     ScoreTracker scoreTracker = new ScoreTracker();
+            
+            
+        //    scoreTracker.getHighestScore();
+            
+/*
+            
+            
             String sql = "SELECT lastName, firstName, MAX(scoreValue) AS highestScore ";
                    sql+= "FROM users JOIN finalscores ON userID = fk_userID ";
                    sql+= "GROUP BY lastName, firstName ";
@@ -63,6 +72,8 @@ public class ws_readscores extends HttpServlet {
                 }
 
                 JSONObject leaders = new JSONObject();
+                
+                
                 leaders.put("leaders", userList);
 
                 out.print(leaders.toString());
@@ -72,7 +83,7 @@ public class ws_readscores extends HttpServlet {
                 out.print("catch?");
 
             }
-
+*/
         }
         
     }

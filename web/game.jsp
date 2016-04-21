@@ -12,6 +12,8 @@
         <title>Alien Invasion - Play</title>
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
 
+
+
         <script src="js/jquery-2.2.3.min.js"></script>
 
         <script>
@@ -28,22 +30,26 @@
             var ALIEN_WIDTH = 43;
             var ALIEN_HEIGHT = 29;
             var BOTTOM_LIMIT = 33;
-            
+            var score = 0;
+
             var collision = false;
-            
+
             ///new variables///
             var curBulletID = 1;
             var firedBullets = []; // initialize empty array that will hold bullet objects
             var screenWidth = 0;
             var screenHeight = 0;
 
-            // var collision = false;
-            //new variables end////
+            var gameID = generateGameID();
+            var userID;
 
-            //   var bulletIdSeed = 1;
-            //   var bulletClip = [];
-            //   var timer = null;
             $(document).ready(function () {
+
+                userID = getUrlParameter("userID");
+
+                console.log("gameID: " + gameID + "... user id: " + userID);
+
+
 
                 $tblAliens = $('#tblAliens');
                 $alien = $('#alien');
@@ -153,6 +159,22 @@
              });
              }
              */
+
+
+            function saveScore(score) {
+
+                var url = "ws/ws_savescore?gameID=" + gameID + "&score=" + score + "&userID=" + userID;
+                // console.log(url);
+
+                //var url = "ws/ws_savescore";
+                    console.log("attempting to save to database, test... the url is: " + url);
+
+
+                $.post(url, function (data) {
+
+                });
+            }
+
 
             /* old bullet code
              function drawBullet() {
@@ -272,30 +294,33 @@
 
                 // Get new position - move by 10 pixels up along Y-axis
                 var newPosY = posY - 10;
-                
+
                 //console.log($firedBullet);
 
                 //detect collision
                 detectCollision($firedBullet);
-                    
-                if (collision){
+
+                if (collision) {
                     clearInterval(bullet.intervalID);
                     $firedBullet.remove(); // Remove bullet from the DOM
                     firedBullets.shift(); // Remove first element of the bullets array
                     collision = false;
                     return;
                 }
-                
-                
+
+
                 // Once the bullet is 5px away from the top, remove it
                 if (newPosY > 5) {
-                    
+                   // console.log("where's my bullet?");
                     $firedBullet.css("top", newPosY + "px");
                 } else {
                     /* 
                      * Clear interval - it's easy because the interval is 
                      * now a property of the bullet JSON object
                      */
+                    saveScore(0);
+                    console.log("save score + 0 called here....")        
+
                     clearInterval(bullet.intervalID);
                     $firedBullet.remove(); // Remove bullet from the DOM
                     firedBullets.shift(); // Remove first element of the bullets array
@@ -310,20 +335,20 @@
 
             function moveAliens() {
                 var pos = $tblAliens.position();
-                var tblPosX = $tblAliens.offset().left;
+                var tblPosX = $tblAliens.position().left;
                 var tblWidth = $tblAliens.width();
                 var winWidth = window.innerWidth;
-                var tblBottom = $tblAliens.offset().top + $tblAliens.height();
+                var tblBottom = $tblAliens.position().top + $tblAliens.height();
 
                 /////LOSE...end game here
                 if (tblBottom >= (window.innerHeight - BOTTOM_LIMIT)) {
-                    exit();
+                    //  exit();
                     console.log("you lose. link this test to gameOver");
                 }
 
                 if (hitRight === false) {
                     $tblAliens.css("left", (pos.left + 10) + "px");
-                    tblPosX = $tblAliens.offset().left;
+                    tblPosX = $tblAliens.position().left;
                     tblWidth = $tblAliens.width();
                     winWidth = window.innerWidth;
                     if (tblPosX >= (winWidth - (tblWidth + 10))) {
@@ -333,7 +358,7 @@
                 }
                 if (hitRight === true) {
                     $tblAliens.css("left", (pos.left - 10) + "px");
-                    tblPosX = $tblAliens.offset().left;
+                    tblPosX = $tblAliens.position().left;
                     tblWidth = $tblAliens.width();
                     winWidth = window.innerWidth;
                     if (tblPosX <= 10) {
@@ -348,7 +373,7 @@
             function detectCollision($firedBullet) {
 
                 for (var i = 0; i < alienList.length; i++) {
-                    
+
                     var collisionDetected = false;
 
                     $alien = alienList[i];
@@ -356,15 +381,18 @@
                     if (alienList[i] !== null) {
 
                         if (intersect($firedBullet, $alien)) {
-                            
+
                             $(this.$alien).remove();
                             alienList[i] = null;
                             collisionDetected = true;
-                            
-                            $.post(ws_savescore.java, 1);
+                            console.log("collision detected...");
+
+
+                            saveScore(1);
+                            console.log("save score + 1 called here....")        
                         }
                     }
-                    
+
                     if (collisionDetected) {
                         return true;
                     }
@@ -401,7 +429,33 @@
 
             }//end intersect function
 
+            //http://stackoverflow.com/questions/19491336/get-url-parameter-jquery-or-how-to-get-query-string-values-in-js
+            // function getUrlParameter(sParam) {
+            var getUrlParameter = function getUrlParameter(sParam) {
+                var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                        sURLVariables = sPageURL.split('&'),
+                        sParameterName,
+                        i;
 
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : sParameterName[1];
+                    }
+                }
+            };
+
+            //https://jsfiddle.net/briguy37/2MVFd/
+            function generateGameID() {
+                var d = new Date().getTime();
+                var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    var r = (d + Math.random() * 16) % 16 | 0;
+                    d = Math.floor(d / 16);
+                    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+                });
+                return uuid.toString();
+            };            
 
 
         </script>

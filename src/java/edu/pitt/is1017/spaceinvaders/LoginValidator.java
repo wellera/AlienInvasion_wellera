@@ -61,7 +61,9 @@ public class LoginValidator extends HttpServlet {
                     }
                     
                     if (user.isLoggedIn()){
-                        response.sendRedirect("game.jsp");
+                        //response.sendRedirect("game.jsp");
+                        response.sendRedirect("game.jsp?userID=" + user.getUserID());
+     
                     }
                     
                 }   

@@ -15,18 +15,37 @@ import java.util.UUID;
 
 import javax.swing.JOptionPane;
 
-public class ScoreTracker {
+public class ScoreTracker{
 	private User user;
 	private int currentScore;
 	private int highestScore;
 	private String gameID;
 
+        
+        
+        
+        
+        
+        ///THIS IS MY NEW SCORETRACKER THAT ACCEPTS GAMEID AS A PARAMETER
+        public ScoreTracker(String gameID){
+            this.gameID = gameID;
+            int userID = getUserID(gameID);
+            
+            
+            User webUser = new User(userID);
+            
+            this.user = webUser;
+            
+            ScoreTracker webTracker = new ScoreTracker(webUser, gameID);
+            
+
+	}
 	
-	public ScoreTracker(User user){
+	public ScoreTracker(User user, String gameID){
 		this.user=user;
+                this.gameID = gameID;
+                
 		setCurrentScore(0);
-		UUID uuid = UUID.randomUUID();
-		this.gameID = uuid.toString();
 		
 		//Retrieve the value of the highest score for any game that the user has ever played 
 		try{
@@ -120,6 +139,39 @@ public class ScoreTracker {
 			JOptionPane.showMessageDialog(null, "There was an error connecting to the database(recording final score).");
 		}
 		
+	}
+        
+        
+        public int getUserID(String gameID){
+		//this.user=user;
+		int userID =0;
+                
+		//Get the user associated with the current game
+		try{
+			DbUtilities db = new DbUtilities();
+			String currentUser = "SELECT fk_userID FROM runningscores WHERE gameID = " + gameID + " LIMIT 1; ";
+                        
+                        db.getResultSet(currentUser);
+			ResultSet rs = db.getResultSet(currentUser);
+			
+			if(rs.next()){
+                                userID = rs.getInt("currentUser");
+                                
+			}
+                  
+			db.closeDbConnection(); // Close connection
+		
+		}
+		catch(SQLException se){
+	      //Handle errors for JDBC
+	      se.printStackTrace();
+	    }
+		catch(Exception e){
+	      e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "There was an error connecting to the database (retrieving current game).");
+		}
+                
+            return userID;
 	}
 
 	public int getCurrentScore() {

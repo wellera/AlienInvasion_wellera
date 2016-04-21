@@ -31,9 +31,41 @@ public class ws_savescore extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
+      //  response.setContentType("application/json");
+        response.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = response.getWriter()) {
-           String x, y;
+
+            String gameID, userID;
+            int score;
+            User user;
+            ScoreTracker scoreTracker;
+
+       out.println(request.getParameter("gameID"));
+       out.println(request.getParameter("score"));
+       out.println(request.getParameter("userID"));
+       out.println("?");
+
+       
+       
+            if ((request.getParameter("gameID") != null) && (request.getParameter("score") != null) && (request.getParameter("userID") != null)) {
+                    userID = request.getParameter("userID");
+                    int id = Integer.parseInt(userID);
+                    user = new User(id);
+                    gameID = request.getParameter("gameID");
+                    score = Integer.parseInt(request.getParameter("score"));
+                    scoreTracker = new ScoreTracker(user, gameID);
+                    scoreTracker.recordScore(score);
+        out.println("parameters accepted successfully");
+        
+            }
+else{
+        out.println("parameters not found");
+    
+        }
+            
+            /*
+            String x, y;
            x = request.getParameter("x");
            y = request.getParameter("y");
            
@@ -45,7 +77,7 @@ public class ws_savescore extends HttpServlet {
                
                out.println("{'message':'success'}");
            }
-            
+             */
         }
     }
 
