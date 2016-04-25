@@ -17,9 +17,10 @@
     </head>
 
     <body>
-        <h1>Alien Invasion - Login</h1>
-        <form id="frmLogin" action="LoginValidator" method="post">
-            <table>
+        <form id="frmLogin" action="LoginValidator" method="post" style="width:230px;">
+            <h1>Alien Invasion <span class="accent"> Login</span></h1>
+
+            <table class="tblLogin">
                 <tr>
                     <td>
             <label for="txtEmail">Email: </label>

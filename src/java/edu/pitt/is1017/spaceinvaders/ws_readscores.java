@@ -40,14 +40,32 @@ public class ws_readscores extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
+
+            String gameID, userID;
+            User user;
+            ScoreTracker scoreTracker;
+
+            if ((request.getParameter("gameID") != null) && (request.getParameter("userID") != null)) {
+                userID = request.getParameter("userID");
+                int id = Integer.parseInt(userID);
+                user = new User(id);
+                gameID = request.getParameter("gameID");
+                scoreTracker = new ScoreTracker(user, gameID);
+
+                JSONObject leaders = new JSONObject();
+
+                leaders = scoreTracker.getHighScores();
+
+                //  out.println("parameters accepted successfully");
+                //   out.print(leaders.toString());
+                out.print(leaders);
+            } else {
+                out.println("parameters not found");
+
+            }
+
+            /*  
             
-            
-       //     ScoreTracker scoreTracker = new ScoreTracker();
-            
-            
-        //    scoreTracker.getHighestScore();
-            
-/*
             
             
             String sql = "SELECT lastName, firstName, MAX(scoreValue) AS highestScore ";
@@ -64,11 +82,11 @@ public class ws_readscores extends HttpServlet {
                 JSONArray userList = new JSONArray();
 
                 while (rs.next()) {
-                    JSONObject user = new JSONObject();
-                    user.put("lastName", rs.getString("lastName"));
-                    user.put("firstName", rs.getString("firstName"));
-                    user.put("highestScore", rs.getInt("highestScore"));
-                    userList.put(user);
+                    JSONObject users = new JSONObject();
+                    users.put("lastName", rs.getString("lastName"));
+                    users.put("firstName", rs.getString("firstName"));
+                    users.put("highestScore", rs.getInt("highestScore"));
+                    userList.put(users);
                 }
 
                 JSONObject leaders = new JSONObject();
@@ -83,11 +101,10 @@ public class ws_readscores extends HttpServlet {
                 out.print("catch?");
 
             }
-*/
+             */
         }
-        
+
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

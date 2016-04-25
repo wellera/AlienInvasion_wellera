@@ -70,7 +70,7 @@ public class LoginValidator extends HttpServlet {
                     
                 if (email.equals("") || password.equals("")) {
                     out.print("<script>alert('You must enter both user name and password');</script>");
-
+                    //response.sendRedirect("index.jsp");
                 }
 
             }

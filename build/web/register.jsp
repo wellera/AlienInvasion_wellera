@@ -13,11 +13,13 @@
         <title>Alien Invasion - Register</title>
         <!--this is for favicon -->
         <link rel='shortcut icon' href='images/favicon.ico' type='image/x-icon'/>
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h1>Alien Invasion - Register</h1>
-        <form id="frmLogin" action="Registration" method="post">
-            <table>
+        <form id="frmLogin" action="Registration" method="post" style="width:300px;">
+            <h1>Alien Invasion <span class="accent">Register</span></h1>
+
+            <table class="tblLogin">
                 <tr>
                     <td>
             <label for="txtFirstName">First Name: </label>

@@ -4,7 +4,31 @@
 */
 
 body{
-    background-color:#cccccc;
+    background-image: url("../images/star_bg.gif");
+    background-repeat:repeat;
+    font-family:arial, helvetica, sans-serif;
+}
+
+h1{
+    color:#ff6600;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.accent{
+    font-weight: normal;
+    color:#ff9900;
+}
+
+.tblLogin tr td{
+    padding:5px;
+}
+
+#frmLogin{
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 10px 20px 20px 20px;
+    margin:200px auto 0px auto;
 }
 
 #alien{
@@ -20,13 +44,6 @@ body{
     position:absolute;
 }
 
-/*
-#bullet{
-    width: 12px;
-    height: 23px;
-    position: absolute;
-}
-*/
 
 #tblAliens{
     position:absolute;
@@ -36,4 +53,15 @@ body{
 
 #tblAliens tr td{
     padding:5px;
+}
+
+
+a:link, a:active, a:visited{
+    color:#009933;
+    text-decoration: none;
+}
+
+a:hover{
+    color:#006600;
+    text-decoration: none;
 }
