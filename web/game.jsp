@@ -30,7 +30,9 @@
             var ALIEN_WIDTH = 43;
             var ALIEN_HEIGHT = 29;
             var BOTTOM_LIMIT = 33;
+            var gameScore = 0;
             var score = 0;
+           // var point = 0;
             var gameEnded = false;
             var collision = false;
             var TABLE_ROWS = 5;
@@ -41,7 +43,6 @@
             var screenHeight = 0;
             var rightRow = TABLE_COLS;
             var leftRow = 1;
-            var score = 0;
 
             var gameID = generateGameID();
             var userID;
@@ -49,8 +50,6 @@
             $(document).ready(function () {
 
                 userID = getUrlParameter("userID");
-
-                console.log("user is is: " + userID);
 
                 $tblAliens = $('#tblAliens');
                 $alien = $('#alien');
@@ -131,7 +130,7 @@
             /*COLLAPSE THE OUTER COLUMNS IF THEY ARE EMPTY*/
             function controlCollapse() {
                 ///only allow the table to drop its outer rows
-                for (i = 1; i <= TABLE_COLS; i++) {
+                for (i = 1; i <= rightRow; i++) {
                     var tdAlien = "alien" + i;
                     var tdCell = "td" + i;
 
@@ -143,7 +142,6 @@
                             cells[x].style.width = "0px";
                             cells[x].style.padding = "0px";
                         }
-                        console.log("drop the far right row");
                         rightRow--;
                     }
                     if (a <= 0 && i === leftRow) {
@@ -152,7 +150,6 @@
                             cells[x].style.width = "0px";
                             cells[x].style.padding = "0px";
                         }
-                        console.log("drop the far left row");
                         leftRow++;
                     }
 
@@ -162,20 +159,25 @@
 
 
             /*SEND SCORE TO DATABASE VIA WS_SAVESCORE SERVLET*/
-            function saveScore(score) {
+            function saveScore(point) {
+                
+                if (point === 1) {
+                    alienCounter--;
+                    window.gameScore = window.gameScore + 1;
 
+                }
+                else{
+                    window.gameScore = window.gameScore - 1;
+                }
+                
 
                 var url = "ws/ws_savescore?gameID=" + gameID + "&score=" + score + "&userID=" + userID;
-                console.log(url);
 
                 $.post(url, function (data) {
 
                 });
 
-                if (score === 1) {
-                    alienCounter--;
-                    score += 1;
-                }
+                
 
                 if (alienCounter === 0) {
                     gameEnded = true;
@@ -183,10 +185,7 @@
                     gameOver(result);
                 }
 
-                if (score === 0) {
-                    score += -1;
-                }
-
+                
             }/*END saveScore*/
 
 
@@ -272,7 +271,6 @@
 
                     // Once the bullet is 5px away from the top, remove it
                     if (newPosY > 5) {
-                        // console.log("where's my bullet?");
                         $firedBullet.css("top", newPosY + "px");
                     } else {
                         /* 
@@ -283,8 +281,8 @@
                         clearInterval(bullet.intervalID);
                         $firedBullet.remove(); // Remove bullet from the DOM
                         firedBullets.shift(); // Remove first element of the bullets array
-                        score = 0;
-                        saveScore(score);// If bullet hits the top of the screen, it's a miss
+                       // point = 0;
+                        saveScore(0);// If bullet hits the top of the screen, it's a miss
 
                     }
                 } else { // If the game is ended, clear the bullet
@@ -346,8 +344,8 @@
                             controlCollapse();
                             alienList[i] = null;
                             collisionDetected = true;
-                            score = 1;
-                            saveScore(score);
+                            //point = 1;
+                            saveScore(1);
                         }
                     }
                     if (collisionDetected) {
@@ -381,10 +379,9 @@
             /*CALLED WHEN GAME IS OVER, REPORT RESULTS AND HIGH SCORES*/
             function gameOver(result) {
                 $(this.$ship).remove();
-                var count;
                 var leaderList = [];
                 var leader;
-                var report = result + " Your score is: " + score + ". \n \n \nAll-time high scores: \n \n";
+                var report = result + " Your score is: " + gameScore + ". \n \n \nAll-time high scores: \n \n";
                 gameEnded = true;
 
 
@@ -397,7 +394,7 @@
                         leader = data.leaders[i].firstName.toString() + " " + data.leaders[i].lastName.toString() + ": " + data.leaders[i].highestScore.toString() + "\n";
                         leaderList.push(leader);
                         report += leader + "\n";
-                        if (i === data.leaders.length-1) {
+                        if (i === data.leaders.length - 1) {
                             alert(report);
 
                         }
@@ -406,18 +403,15 @@
 
                 });
 
-
+                $(window).unload(function () {
+                    result = "You lost.";
+                    gameOver(result);
+                });
             }/*END gameOver*/
 
 
 
-            /////????????????????????
-            // window.alert($tbl);
-            $(window).unload(function () {
-                result = "You lost."; ///TEST THIS
-                gameOver(result); ///TEST THIS
-            });
-            ///////???????????????
+
 
 
 
@@ -467,7 +461,7 @@
 
         <div id="ship"></div> 
 
-     
+
 
     </body>
 </html>

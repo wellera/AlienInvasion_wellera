@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <form id="frmLogin" action="LoginValidator" method="post" style="width:230px;">
+        <form id="frmLogin" action="LoginValidator" method="post" style="width:250px;">
             <h1>Alien Invasion <span class="accent"> Login</span></h1>
 
             <table class="tblLogin">
@@ -26,7 +26,7 @@
             <label for="txtEmail">Email: </label>
                     </td>
                     <td>
-            <input type="text" id="txtEmail" name="txtEmail" value=""> 
+                        <input type="text" id="txtEmail" name="txtEmail" value="" > 
                     </td>
                 </tr>
                 <tr>

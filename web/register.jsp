@@ -16,7 +16,7 @@
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <form id="frmLogin" action="Registration" method="post" style="width:300px;">
+        <form id="frmLogin" action="Registration" method="post" style="width:320px;">
             <h1>Alien Invasion <span class="accent">Register</span></h1>
 
             <table class="tblLogin">
